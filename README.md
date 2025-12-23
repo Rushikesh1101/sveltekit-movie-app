@@ -123,6 +123,6 @@ Copyright (c) new Date().getFullYear() Rushikesh1101
 Rushikesh Medhe
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rushikesh1101)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/rushikesh-m-87869b214)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]([www.linkedin.com/in/rushikesh-m-87869b214])
 
 ---
