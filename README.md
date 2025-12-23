@@ -79,7 +79,8 @@ src/
 
 ## .env File
 
-VITE_TMDB_API_KEY=your_tmdb_api_key_here
+VITE_TMDB_API_KEY=your_tmdb_api_key_here \n
+
 VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
 
 ---
