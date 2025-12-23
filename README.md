@@ -88,11 +88,11 @@ VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
 
 ## Enjoy Exploring Movies!
 
-![Home Page](static\screenshots\MovieHub-Discover-Movies.png)
-![Movie Details](static\screenshots\MovieHub-Movie-Details.png)
-![Login Page](static\screenshots\MovieHub-Login.png)
-![Signup Page](static\screenshots\MovieHub-Sign-Up.png)
-![Watchlist](static\screenshots\MovieHub-Watchlist.png)
+![Home Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Discover-Movies.png)
+![Movie Details](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Movie-Details.png)
+![Login Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Login.png)
+![Signup Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Sign-Up.png)
+![Watchlist](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Watchlist.png)
 
 ---
 
