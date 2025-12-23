@@ -89,11 +89,20 @@ VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
 
 ## Enjoy Exploring Movies!
 
-![Home Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Discover-Movies.png)
-![Movie Details](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Movie-Details.png)
-![Login Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Login.png)
-![Signup Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Sign-Up.png)
-![Watchlist](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Watchlist.png)
+1. Home Page
+   ![Home Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Discover-Movies.png)
+
+2. Movie Details Page
+   ![Movie Details](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Movie-Details.png)
+
+3. Login Page
+   ![Login Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Login.png)
+
+4. Signup Page
+   ![Signup Page](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Sign-Up.png)
+
+5. Watchlist
+   ![Watchlist](https://github.com/Rushikesh1101/sveltekit-movie-app/blob/main/static/screenshots/MovieHub-Watchlist.png)
 
 ---
 
