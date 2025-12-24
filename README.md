@@ -112,7 +112,7 @@ VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
 
 This project is licensed under the MIT License.
 
-Copyright (c) new Date().getFullYear() Rushikesh1101
+Copyright (c) 2025 Rushikesh1101
 
 ---
 
