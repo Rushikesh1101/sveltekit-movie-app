@@ -4,10 +4,13 @@
 	import { fetchMovies, discoverMovies } from '$lib/api/tmdb';
 	import Filters from '$lib/components/Filters.svelte';
 	import MovieCard from '$lib/components/MovieCard.svelte';
+	import ApiError from '$lib/components/ApiError.svelte';
+
 	import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-svelte';
 
 	let movies = [];
 	let loading = false;
+	let error = null;
 
 	const currentPage = 1;
 	let totalPages = 1;
@@ -29,6 +32,8 @@
 		lastKey = key;
 
 		loading = true;
+		error = null;
+
 		try {
 			let data;
 			if (genre || year || rating) {
@@ -36,27 +41,22 @@
 			} else {
 				data = await fetchMovies(search, page);
 			}
+
 			movies = data?.results ?? [];
 			totalPages = Math.min(data?.total_pages ?? 1, 500);
+		} catch (err) {
+			movies = [];
+			totalPages = 1;
+
+			error =
+				err.message === 'NETWORK_ERROR'
+					? 'Network error. TMDB is unreachable.'
+					: 'TMDB API is not responding.';
 		} finally {
 			loading = false;
 		}
 	}
 
-	// /* WRITE FILTERS → URL */
-	// function onFilterChange(e) {
-	// 	const params = new URLSearchParams();
-
-	// 	if (search) params.set('q', search);
-	// 	if (e.detail.genre) params.set('genre', e.detail.genre);
-	// 	if (e.detail.year) params.set('year', e.detail.year);
-	// 	if (e.detail.rating) params.set('rating', e.detail.rating);
-
-	// 	goto(`/?${params.toString()}`, {
-	// 		replaceState: true,
-	// 		noscroll: true
-	// 	});
-	// }
 	/* ---------------- PAGINATION ---------------- */
 
 	function goToPage(p) {
@@ -92,10 +92,18 @@
 		<Filters bind:genre bind:year bind:rating />
 	</div>
 
+	<!-- API Error -->
+	{#if error}
+		<ApiError
+			message="API not working. Please check your network or visit https://www.themoviedb.org/ to verify availability."
+		/>
+	{/if}
+
 	<!-- Loading -->
 	{#if loading}
 		<div class="space-y-6">
 			<div class="gap-3 text-gray-400 flex items-center justify-center">
+				<!-- svelte-ignore element_invalid_self_closing_tag -->
 				<span
 					class="w-5 h-5 border-gray-400 animate-spin rounded-full border-2 border-t-transparent"
 				/>
@@ -107,9 +115,12 @@
 			>
 				{#each Array(12) as _}
 					<div class="bg-gray-900 border-gray-800 rounded-xl animate-pulse overflow-hidden border">
+						<!-- svelte-ignore element_invalid_self_closing_tag -->
 						<div class="bg-gray-800 aspect-[2/3]" />
 						<div class="p-3 space-y-2">
+							<!-- svelte-ignore element_invalid_self_closing_tag -->
 							<div class="h-4 bg-gray-800 rounded w-3/4" />
+							<!-- svelte-ignore element_invalid_self_closing_tag -->
 							<div class="h-3 bg-gray-800 rounded w-1/2" />
 						</div>
 					</div>
@@ -119,7 +130,7 @@
 	{/if}
 
 	<!-- Movies -->
-	{#if !loading && movies.length > 0}
+	{#if !loading && !error && movies.length > 0}
 		<div class="sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 grid grid-cols-2">
 			{#each movies as movie}
 				<MovieCard {movie} />
@@ -194,7 +205,7 @@
 	{/if}
 
 	<!-- Empty -->
-	{#if !loading && movies.length === 0}
+	{#if !loading && !error && movies.length === 0}
 		<div class="py-24 text-gray-400 text-center">No movies found.</div>
 	{/if}
 </section>

@@ -1,90 +1,76 @@
+/* eslint-disable no-unused-vars */
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-export async function fetchMovies(query = '', page = 1) {
-	/* API for Movie List Home page */
+async function safeFetch(url) {
+	let res;
+
+	try {
+		res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				accept: 'application/json',
+				Authorization: `Bearer ${API_KEY}`
+			}
+		});
+	} catch (err) {
+		// Network error / DNS / offline / blocked
+		throw new Error('NETWORK_ERROR');
+	}
+
+	if (!res.ok) {
+		// API reachable but returned error
+		throw new Error(`API_ERROR_${res.status}`);
+	}
+
+	return res.json();
+}
+
+/* ============================
+   MOVIE LIST (HOME / SEARCH)
+============================ */
+export function fetchMovies(query = '', page = 1) {
 	const url = query
-		? `${BASE_URL}/search/movie?query=${query}&language=en-US&page=${page}`
+		? `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=en-US&page=${page}`
 		: `${BASE_URL}/movie/now_playing?language=en-US&page=${page}`;
 
-	const res = await fetch(url, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-	return res.json();
+	return safeFetch(url);
 }
 
-/* API for Selected Movie Details page like movie details, images, reviews, videos */
-export async function fetchMovie(id) {
-	const res = await fetch(`${BASE_URL}/movie/${id}`, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-	return res.json();
-}
-export async function fetchMovieImgs(id) {
-	const res = await fetch(`${BASE_URL}/movie/${id}/images`, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-	return res.json();
-}
-export async function fetchMovieReviews(id) {
-	console.log(id, ',.,..,..,.,.,.,.,.,');
-	const res = await fetch(`${BASE_URL}/movie/${id}/reviews`, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-	return res.json();
-}
-export async function fetchMovieVideos(id) {
-	console.log(id, ',.,..,..,.,.,.,.,.,');
-	const res = await fetch(`${BASE_URL}/movie/${id}/videos`, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-	return res.json();
-}
-export async function fetchMovieCredits(id) {
-	console.log(id, ',.,..,..,.,.,.,.,.,');
-	const res = await fetch(`${BASE_URL}/movie/${id}/credits`, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-	return res.json();
+/* ============================
+   MOVIE DETAILS
+============================ */
+export function fetchMovie(id) {
+	return safeFetch(`${BASE_URL}/movie/${id}`);
 }
 
-export async function fetchGenres() {
-	const res = await fetch(`${BASE_URL}/genre/movie/list`, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-	return res.json();
+export function fetchMovieImgs(id) {
+	return safeFetch(`${BASE_URL}/movie/${id}/images`);
 }
 
-/* API for Discover Movies with Filters (Genre, Year, Rating) */
-export async function discoverMovies({
+export function fetchMovieReviews(id) {
+	return safeFetch(`${BASE_URL}/movie/${id}/reviews`);
+}
+
+export function fetchMovieVideos(id) {
+	return safeFetch(`${BASE_URL}/movie/${id}/videos`);
+}
+
+export function fetchMovieCredits(id) {
+	return safeFetch(`${BASE_URL}/movie/${id}/credits`);
+}
+
+/* ============================
+   GENRES
+============================ */
+export function fetchGenres() {
+	return safeFetch(`${BASE_URL}/genre/movie/list`);
+}
+
+/* ============================
+   DISCOVER MOVIES (FILTERS)
+============================ */
+export function discoverMovies({
 	genre = '',
 	year = '',
 	rating = '',
@@ -97,17 +83,5 @@ export async function discoverMovies({
 	if (year) url += `&primary_release_year=${year}`;
 	if (rating) url += `&vote_average.gte=${rating}`;
 
-	const res = await fetch(url, {
-		method: 'GET',
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${API_KEY}`
-		}
-	});
-
-	if (!res.ok) {
-		throw new Error('Failed to fetch discovered movies');
-	}
-
-	return res.json();
+	return safeFetch(url);
 }
